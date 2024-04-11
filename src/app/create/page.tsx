@@ -95,7 +95,7 @@ const CreateHouseholdMember = () => {
     <section className="text-gray-600 body-font relative">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-col text-center w-full mb-12">
-          <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+          <h1 className="sm:text-3xl text-2xl font-semibold title-font mb-4 text-gray-900">
             New Household Member
           </h1>
           <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
@@ -320,15 +320,15 @@ const CreateHouseholdMember = () => {
                 <button
                   type="submit"
                   disabled={isDisabled || isLoading}
-                  className={`bg-blue-500 text-white font-bold py-2 px-4 rounded ${
+                  className={`bg-gray-900 text-white focus:ring-2 focus:ring-offset-2 focus:ring-black rounded-xl py-2 px-4 md:py-3 md:px-6 text-xs md:text-sm duration-200 font-medium
+                 hover:-translate-y-0.5 active:translate-y-0 shadow-gray-100 ${
                     isDisabled || isLoading
                       ? "opacity-50 cursor-not-allowed"
-                      : "hover:bg-blue-700"
+                      : "hover:shadow-gray-300  hover:bg-gray-700"
                   }`}
                 >
                   {isLoading ? "Submitting..." : "Submit"}
                 </button>
-
                 <Toaster />
               </div>
             </div>

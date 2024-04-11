@@ -1,11 +1,12 @@
 type HouseholdMember = {
+    houseHoldId: number;
     id: number;
     firstName: string;
     lastName: string;
     phoneNumber: number;
     ethnicityCode: string;
     sexCode: string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     respondent: Boolean;
     relationshipCode: string;
     maritalStatusCode: string;
@@ -36,12 +37,20 @@ interface InputProps {
 interface Option {
     value: string;
     label: string;
-  }
+}
 
-  interface SelectFieldProps {
+interface SelectFieldProps {
     label: string;
     name: string;
     value: string | "";
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     options: { value: string; label: string }[];
-  }
+}
+
+interface DashboardCardProps {
+    houseHoldId: number;
+    firstName: string;
+    lastName: string;
+    sex: string;
+    dob: string;
+}

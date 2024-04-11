@@ -15,23 +15,23 @@ datasource db {
 
 
 model HouseholdMember {
-  /// @HideField({ input: true, output: false })
-  id              String         @id @default(uuid()) @unique
-  houseHoldId     Int           @default(autoincrement())
+  id              Int         @id @default(autoincrement()) @unique
+  houseHoldId     String      @default(uuid())
   firstName       String
-  lastName        String
-  phoneNumber     String?
+  lastName        String 
+  phoneNumber     Int @default(00)
   ethnicityCode   Ethnicity
   sexCode         Sex
-  dateOfBirth     String
-  respondent      Boolean
+  age             Int
+  respondent      Boolean @default(false)
   relationshipCode Relationship
-  maritalStatusCode MaritalStatus?
-  fathersName     String?
-  mothersName     String?
-  schoolAttendance Boolean
-  educationLevel  EducationLevel?
-  employmentStatus EmploymentStatus?
+  maritalStatus   MaritalStatus
+  spouseName      String
+  fathersName     String
+  mothersName     String
+  schoolAttendance  Boolean
+  educationLevel  EducationLevel
+  employmentStatus EmploymentStatus
 
   /// @HideField({ input: true, output: false })
   createdAt                 DateTime  @default(now()) @db.Timestamptz
