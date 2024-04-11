@@ -4,8 +4,9 @@ import axios from "axios";
 import Input from "../components/ui/Input";
 import SelectField from "../components/ui/SelectField";
 import Label from "../components/ui/Label";
+import toast, { Toaster } from "react-hot-toast";
 const CreateHouseholdMember = () => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     firstName: "",
     lastName: "",
     phoneNumber: "",
@@ -20,26 +21,24 @@ const CreateHouseholdMember = () => {
     schoolAttendance: true,
     educationLevel: "",
     employmentStatus: "",
-  });
+  };
+  const [formData, setFormData] = useState(initialFormData);
 
-  const [formError, setFormError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const requiredFields = Object.entries(formData).filter(
-      ([key, value]) => value === ""
-    );
-
-    if (requiredFields.length > 0) {
-      setFormError("Please fill in all fields.");
-    } else {
-      try {
-        const response = await axios.post("/api/household", formData);
-        console.log("Response:", response.data);
-        setFormError("");
-      } catch (error) {
-        console.error("Error:", error);
-      }
+    setIsLoading(true);
+    try {
+      const response = await axios.post("/api/household", formData);
+      console.log("Response:", response.data);
+      setFormData(initialFormData);
+      toast.success("Successfully created!");
+    } catch (error) {
+      toast.error("An error occured!");
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -103,7 +102,6 @@ const CreateHouseholdMember = () => {
             You can now add new household members to the list
           </p>
         </div>
-        {formError && <div className="text-red-500 mb-4">{formError}</div>}
         <div className="w-2/2 lg:w-2/2 md:w-2/3 mx-auto">
           <form onSubmit={handleSubmit}>
             <div className="flex flex-wrap -m-2">
@@ -191,7 +189,7 @@ const CreateHouseholdMember = () => {
                     type="radio"
                     name="respondent"
                     value="true"
-                    checked={respondent === true}
+                    checked={respondent}
                     onChange={handleRadioChange}
                   />
                   <label htmlFor="respondentTrue" className="mr-6">
@@ -201,7 +199,7 @@ const CreateHouseholdMember = () => {
                     type="radio"
                     name="respondent"
                     value="false"
-                    checked={respondent === false}
+                    checked={!respondent}
                     onChange={handleRadioChange}
                   />
                   <label htmlFor="respondentFalse">False</label>
@@ -229,7 +227,7 @@ const CreateHouseholdMember = () => {
                   <SelectField
                     label="Marital Status"
                     name="maritalStatusCode"
-                    value={maritalStatusCode || "SINGLE"}
+                    value={maritalStatusCode}
                     onChange={handleChange}
                     options={[
                       { value: "", label: "Please select an option" },
@@ -269,7 +267,7 @@ const CreateHouseholdMember = () => {
                     type="radio"
                     name="schoolAttendance"
                     value="true"
-                    checked={schoolAttendance === true}
+                    checked={schoolAttendance}
                     onChange={handleRadioChange}
                   />
                   <label htmlFor="schoolAttendanceTrue" className="mr-6">
@@ -279,7 +277,7 @@ const CreateHouseholdMember = () => {
                     type="radio"
                     name="schoolAttendance"
                     value="false"
-                    checked={schoolAttendance === false}
+                    checked={!schoolAttendance}
                     onChange={handleRadioChange}
                   />
                   <label htmlFor="schoolAttendanceFalse">Absent</label>
@@ -321,15 +319,17 @@ const CreateHouseholdMember = () => {
               <div className="p-2 w-full">
                 <button
                   type="submit"
-                  disabled={isDisabled}
+                  disabled={isDisabled || isLoading}
                   className={`bg-blue-500 text-white font-bold py-2 px-4 rounded ${
-                    isDisabled
+                    isDisabled || isLoading
                       ? "opacity-50 cursor-not-allowed"
                       : "hover:bg-blue-700"
                   }`}
                 >
-                  Submit
+                  {isLoading ? "Submitting..." : "Submit"}
                 </button>
+
+                <Toaster />
               </div>
             </div>
           </form>
