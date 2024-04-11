@@ -32,6 +32,8 @@ model HouseholdMember {
   educationLevel  EducationLevel
   employmentStatus EmploymentStatus
   headOfHousehold  Boolean
+  hohFirstName    String
+  hohLastName     String
   positionInHousehold CodePosition
 
   /// @HideField({ input: true, output: false })

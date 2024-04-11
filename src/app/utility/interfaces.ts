@@ -1,12 +1,13 @@
 type HouseholdMember = {
-    houseHoldId: number;
     id: number;
+    houseHoldId: string;
     firstName: string;
     lastName: string;
     phoneNumber: number;
     ethnicityCode: string;
     sexCode: string;
-    dateOfBirth: string;
+    age: number;
+    spouseName: string;
     respondent: Boolean;
     relationshipCode: string;
     maritalStatusCode: string;
@@ -15,6 +16,10 @@ type HouseholdMember = {
     schoolAttendance: string;
     educationLevel: string;
     employmentStatus: string;
+    headOfHousehold: Boolean;
+    hohFirstName: String;
+    hohLastName: String;
+    positionInHousehold: string;
 };
 
 interface HouseholdListProps {

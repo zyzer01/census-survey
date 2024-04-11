@@ -10,19 +10,21 @@ const Radio: React.FC<RadioProps> = ({
 }) => {
   return (
     <label
-      htmlFor={htmlFor}
-      className="block size-8 cursor-pointer rounded-full bg-black shadow-sm has-[:checked]:ring-2 has-[:checked]:ring-black has-[:checked]:ring-offset-2"
-    >
-      <input
-        id={id}
-        type="radio"
-        name={name}
-        value={value}
-        className="sr-only"
-        checked={checked}
-      />
-      {label}
-    </label>
+    htmlFor={htmlFor}
+    className="flex items-center space-x-2 cursor-pointer"
+  >
+    <input
+      id={id}
+      type="radio"
+      name={name}
+      value={value}
+      className="sr-only"
+      checked={checked}
+    />
+    <span className="block size-3 cursor-pointer rounded-full bg-white shadow-sm has-[:checked]:bg-black has-[:checked]:ring-2 has-[:checked]:ring-black has-[:checked]:ring-offset-2"></span>
+    <span>{label}</span>
+  </label>
+  
   );
 };
 

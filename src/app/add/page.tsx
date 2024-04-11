@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Input from "../components/ui/Input";
 import SelectField from "../components/ui/SelectField";
-import Radio from "../components/ui/Radio";
+import Label from "../components/ui/Label";
 
 const CensusForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const CensusForm: React.FC = () => {
     age: 0,
     respondent: false,
     relationshipCode: "HUSBAND",
-    maritalStatus: "SINGLE",
+    maritalStatus: "MARRIED",
     spouseName: "",
     fathersName: "",
     mothersName: "",
@@ -24,6 +24,8 @@ const CensusForm: React.FC = () => {
     employmentStatus: "STUDENT",
     headOfHousehold: false,
     positionInHousehold: "HEAD",
+    hohFirstName: "",
+    hohLastName: "",
     currentPrompt: 0,
   });
 
@@ -141,16 +143,9 @@ const CensusForm: React.FC = () => {
                       ]}
                     />
                   </div>
-                  <div className="col-span-full flex justify-between pt-6">
+                  <div className="col-span-full flex justify-end pt-6">         
                     <button
-                      type="submit"
-                      onClick={() => handleNavigation(-1)}
-                      className="inline-flex items-center justify-center h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
-                    >
-                      Prev
-                    </button>
-                    <button
-                      type="submit"
+                      type="button"
                       onClick={() => handleNavigation(1)}
                       className="inline-flex items-center justify-center h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
                     >
@@ -367,14 +362,14 @@ const CensusForm: React.FC = () => {
 
                   <div className="col-span-full flex justify-between pt-6">
                     <button
-                      type="submit"
+                      type="button"
                       onClick={() => handleNavigation(-1)}
                       className="inline-flex items-center justify-center h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
                     >
                       Prev
                     </button>
                     <button
-                      type="submit"
+                      type="button"
                       onClick={() => handleNavigation(1)}
                       className="inline-flex items-center justify-center h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
                     >
@@ -399,83 +394,85 @@ const CensusForm: React.FC = () => {
               <form>
                 <div className="space-y-3">
                   <div>
-                    <Radio 
-                    id="headOfHousehold"
-                    label="Head of household"
-                    name="headOfHousehold"
-                    value={formData.headOfHousehold}
-                    >
+                    <Label label="Head of Household" />
+                    <div className="flex items-center gap-x-3">
+                      <div>
+                        <input
+                          type="radio"
+                          id="headOfHouseholdYes"
+                          name="headOfHousehold"
+                          value="true"
+                          checked={formData.headOfHousehold === true}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              headOfHousehold: e.target.value === "true",
+                            })
+                          }
+                        />
+                        <label htmlFor="headOfHouseholdYes" className="ml-1">
+                          Yes
+                        </label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="headOfHouseholdNo"
+                          name="headOfHousehold"
+                          value="false"
+                          checked={formData.headOfHousehold === false}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              headOfHousehold: e.target.value === "true",
+                            })
+                          }
+                        />
+                        <label htmlFor="headOfHouseholdNo" className="ml-1">
+                          No
+                        </label>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <Input
-                      id="lastName"
-                      label="Last Name"
-                      type="text"
-                      name="lastName"
-                      placeholder="Last Name"
-                      value={formData.lastName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, lastName: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Input
-                      id="phoneNumber"
-                      label="Phone Number"
-                      type="tel"
-                      name="phoneNumber"
-                      placeholder="070123456789"
-                      value={formData.phoneNumber}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          phoneNumber: parseInt(e.target.value),
-                        })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <SelectField
-                      label="Ethnicity"
-                      name="ethnicityCode"
-                      value={formData.ethnicityCode}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          ethnicityCode: e.target.value,
-                        })
-                      }
-                      options={[
-                        { value: "", label: "Please select an option" },
-                        { value: "IGBO", label: "Igbo" },
-                        { value: "YORUBA", label: "Yoruba" },
-                        { value: "HAUSA", label: "Hausa" },
-                        { value: "OTHER", label: "Other" },
-                      ]}
-                    />
-                  </div>
-                  <div>
-                    <SelectField
-                      label="Sex"
-                      name="sexCode"
-                      value={formData.sexCode}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          sexCode: e.target.value,
-                        })
-                      }
-                      options={[
-                        { value: "", label: "Please select an option" },
-                        { value: "MALE", label: "Male" },
-                        { value: "FEMALE", label: "Female" },
-                      ]}
-                    />
-                  </div>
+                  {!formData.headOfHousehold && (
+                    <>
+                      <div>
+                        <Input
+                          id="hohFirstName"
+                          label="Head of house first name"
+                          type="text"
+                          name="hohFirstName"
+                          placeholder="HOH First Name"
+                          value={formData.hohFirstName}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              hohFirstName: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Input
+                          id="hohLastName"
+                          label="Head of house last name"
+                          type="text"
+                          name="hohLastName"
+                          placeholder="HOH Last Name"
+                          value={formData.hohLastName}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              hohLastName: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                    </>
+                  )}
                   <div className="col-span-full flex justify-between pt-6">
                     <button
-                      type="submit"
+                      type="button"
                       onClick={() => handleNavigation(-1)}
                       className="inline-flex items-center justify-center h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
                     >
@@ -483,132 +480,15 @@ const CensusForm: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      onClick={() => handleNavigation(1)}
                       className="inline-flex items-center justify-center h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
                     >
-                      Next
+                      Submit
                     </button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
-          // <div>
-          //   <label htmlFor="headOfHousehold">Head of Household</label>
-          //   <select
-          //     id="headOfHousehold"
-          //     value={formData.headOfHousehold}
-          //     onChange={(e) =>
-          //       setFormData({
-          //         ...formData,
-          //         headOfHousehold: e.target.value === "true",
-          //       })
-          //     }
-          //   >
-          //     <option value="true">Yes</option>
-          //     <option value="false">No</option>
-          //   </select>
-          //   {!formData.headOfHousehold && (
-          //     <>
-          //       <label htmlFor="respondentFirstName">
-          //         Respondent First Name
-          //       </label>
-          //       <input
-          //         type="text"
-          //         id="respondentFirstName"
-          //         value={formData.firstName}
-          //         onChange={(e) =>
-          //           setFormData({ ...formData, firstName: e.target.value })
-          //         }
-          //       />
-          //       <label htmlFor="respondentLastName">Respondent Last Name</label>
-          //       <input
-          //         type="text"
-          //         id="respondentLastName"
-          //         value={formData.lastName}
-          //         onChange={(e) =>
-          //           setFormData({ ...formData, lastName: e.target.value })
-          //         }
-          //       />
-          //       <label htmlFor="respondentPhoneNumber">
-          //         Respondent Phone Number
-          //       </label>
-          //       <input
-          //         type="number"
-          //         id="respondentPhoneNumber"
-          //         value={formData.phoneNumber}
-          //         onChange={(e) =>
-          //           setFormData({
-          //             ...formData,
-          //             phoneNumber: parseInt(e.target.value),
-          //           })
-          //         }
-          //       />
-          //       <label htmlFor="respondentRelationshipCode">
-          //         Respondent Relationship to Head of House
-          //       </label>
-          //       <select
-          //         id="respondentRelationshipCode"
-          //         value={formData.relationshipCode}
-          //         onChange={(e) =>
-          //           setFormData({
-          //             ...formData,
-          //             relationshipCode: e.target.value,
-          //           })
-          //         }
-          //       >
-          //         <option value="HUSBAND">Husband</option>
-          //         <option value="WIFE">Wife</option>
-          //         <option value="CHILD">Child</option>
-          //         <option value="EXTENDED_FAMILY">Extended Family</option>
-          //       </select>
-          //       <label htmlFor="respondentPositionInHousehold">
-          //         Respondent Position in Household
-          //       </label>
-          //       <select
-          //         id="respondentPositionInHousehold"
-          //         value={formData.positionInHousehold}
-          //         onChange={(e) =>
-          //           setFormData({
-          //             ...formData,
-          //             positionInHousehold: e.target.value,
-          //           })
-          //         }
-          //       >
-          //         <option value="HEAD">Head</option>
-          //         <option value="SPOUSE">Spouse</option>
-          //         <option value="CHILD">Child</option>
-          //         <option value="OTHER">Other</option>
-          //       </select>
-          //     </>
-          //   )}
-          //   {formData.headOfHousehold && (
-          //     <>
-          //       <label htmlFor="headOfHouseholdFirstName">
-          //         Head of Household First Name
-          //       </label>
-          //       <input
-          //         type="text"
-          //         id="headOfHouseholdFirstName"
-          //         value={formData.firstName}
-          //         onChange={(e) =>
-          //           setFormData({ ...formData, firstName: e.target.value })
-          //         }
-          //       />
-          //       <label htmlFor="headOfHouseholdLastName">
-          //         Head of Household Last Name
-          //       </label>
-          //       <input
-          //         type="text"
-          //         id="headOfHouseholdLastName"
-          //         value={formData.lastName}
-          //         onChange={(e) =>
-          //           setFormData({ ...formData, lastName: e.target.value })
-          //         }
-          //       />
-          //     </>
-          //   )}
-          // </div>
         );
       default:
         return null;
