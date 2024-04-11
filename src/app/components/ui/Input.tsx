@@ -1,18 +1,20 @@
 import React from "react";
 
-const Input: React.FC<InputProps> = ({ label, type, name, value, pattern, onChange }) => {
+const Input: React.FC<InputProps> = ({ label, id, type, name, value, pattern, placeholder, onChange }) => {
     console.log(value);
     
   return (
     <div className="relative">
-      <label className="leading-7 text-sm text-gray-600">{label}</label>
+      <label className="block mb-3 text-sm font-medium text-black">{label}</label>
       <input
+        id={id}
         type={type}
         name={name}
         value={value}
         pattern={pattern}
+        placeholder={placeholder}
         onChange={onChange}
-        className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        className="block w-full font-semibold h-12 px-4 py-2 text-gray-900 duration-200 border rounded-lg appearance-none bg-chalk border-zinc-300 placeholder-zinc-300 focus:border-zinc-300 focus:outline-none focus:ring-zinc-300 sm:text-sm leading-8 transition-colors ease-in-out"
       />
     </div>
   );

@@ -23,14 +23,17 @@ interface HouseholdListProps {
 
 interface LabelProps {
     label: string;
+    htmlFor?: string;
 }
 
 interface InputProps {
     label: string;
+    id: string;
     type: string;
     name: string;
-    value: string;
+    value: string | number;
     pattern?: string;
+    placeholder?: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -39,6 +42,14 @@ interface Option {
     label: string;
 }
 
+interface RadioProps {
+    id: string;
+    label: string;
+    value: boolean;
+    checked: boolean;
+    htmlFor: string;
+    name: string;
+}
 interface SelectFieldProps {
     label: string;
     name: string;

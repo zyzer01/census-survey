@@ -13,17 +13,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model HouseholdMember {
   id              Int         @id @default(autoincrement()) @unique
   houseHoldId     String      @default(uuid())
   firstName       String
-  lastName        String 
-  phoneNumber     Int @default(00)
+  lastName        String
+  phoneNumber     Int         @default(0)
   ethnicityCode   Ethnicity
   sexCode         Sex
   age             Int
-  respondent      Boolean @default(false)
+  respondent      Boolean     @default(false)
   relationshipCode Relationship
   maritalStatus   MaritalStatus
   spouseName      String
@@ -32,6 +31,8 @@ model HouseholdMember {
   schoolAttendance  Boolean
   educationLevel  EducationLevel
   employmentStatus EmploymentStatus
+  headOfHousehold  Boolean
+  positionInHousehold CodePosition
 
   /// @HideField({ input: true, output: false })
   createdAt                 DateTime  @default(now()) @db.Timestamptz
@@ -77,4 +78,11 @@ enum EmploymentStatus {
   UNEMPLOYED
   EMPLOYED
   SELF_EMPLOYED
-} 
+}
+
+enum CodePosition {
+  HEAD
+  SPOUSE
+  CHILD
+  OTHER
+}

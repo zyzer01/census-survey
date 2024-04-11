@@ -108,6 +108,7 @@ const CreateHouseholdMember = () => {
               <div className="p-2 w-2/3 md:w-1/3">
                 <div className="relative">
                   <Input
+                    id="firstName"
                     label="First Name"
                     type="text"
                     name="firstName"
@@ -119,6 +120,7 @@ const CreateHouseholdMember = () => {
               <div className="p-2 w-2/3 md:w-1/3">
                 <div className="relative">
                   <Input
+                    id="lastName"
                     label="Last Name"
                     type="text"
                     name="lastName"
@@ -130,6 +132,7 @@ const CreateHouseholdMember = () => {
               <div className="p-2 w-2/3 md:w-1/3">
                 <div className="relative">
                   <Input
+                    id="phoneNumber"
                     label="Phone Number"
                     type="text"
                     name="phoneNumber"
@@ -172,6 +175,7 @@ const CreateHouseholdMember = () => {
               <div className="p-2 w-2/3 md:w-1/3">
                 <div className="relative">
                   <Input
+                    id="dateOfBirth"
                     label="Date of Birth"
                     type="date"
                     name="dateOfBirth"
@@ -186,6 +190,7 @@ const CreateHouseholdMember = () => {
                 <Label label="Repondent" />
                 <div className="relative pt-2 space-x-1">
                   <input
+                    id="respondent"
                     type="radio"
                     name="respondent"
                     value="true"
@@ -196,6 +201,7 @@ const CreateHouseholdMember = () => {
                     True
                   </label>
                   <input
+                    id="respondent"
                     type="radio"
                     name="respondent"
                     value="false"
@@ -241,6 +247,7 @@ const CreateHouseholdMember = () => {
               <div className="p-2 w-2/3 md:w-1/3">
                 <div className="relative">
                   <Input
+                    id="fathersName"
                     label="Father's Name"
                     type="text"
                     name="fathersName"
@@ -252,6 +259,7 @@ const CreateHouseholdMember = () => {
               <div className="p-2 w-2/3 md:w-1/3">
                 <div className="relative">
                   <Input
+                    id="mothersName"
                     label="Mother's Name"
                     type="text"
                     name="mothersName"
@@ -264,6 +272,7 @@ const CreateHouseholdMember = () => {
                 <Label label="School Attendance" />
                 <div className="relative pt-2 space-x-1">
                   <input
+                    id="schoolAttendance"
                     type="radio"
                     name="schoolAttendance"
                     value="true"
@@ -274,6 +283,7 @@ const CreateHouseholdMember = () => {
                     Present
                   </label>
                   <input
+                    id="schoolAttendance"
                     type="radio"
                     name="schoolAttendance"
                     value="false"
@@ -322,10 +332,10 @@ const CreateHouseholdMember = () => {
                   disabled={isDisabled || isLoading}
                   className={`bg-gray-900 text-white focus:ring-2 focus:ring-offset-2 focus:ring-black rounded-xl py-2 px-4 md:py-3 md:px-6 text-xs md:text-sm duration-200 font-medium
                  hover:-translate-y-0.5 active:translate-y-0 shadow-gray-100 ${
-                    isDisabled || isLoading
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:shadow-gray-300  hover:bg-gray-700"
-                  }`}
+                   isDisabled || isLoading
+                     ? "opacity-50 cursor-not-allowed"
+                     : "hover:shadow-gray-300  hover:bg-gray-700"
+                 }`}
                 >
                   {isLoading ? "Submitting..." : "Submit"}
                 </button>
