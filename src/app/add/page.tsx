@@ -8,7 +8,7 @@ const CensusForm: React.FC = () => {
     lastName: "",
     phoneNumber: 0,
     ethnicityCode: "IGBO",
-    sexCode: "MALE",
+    sexCode: "MALE", 
     age: 0,
     respondent: false,
     relationshipCode: "HUSBAND",
