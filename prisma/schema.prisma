@@ -18,7 +18,7 @@ model HouseholdMember {
   houseHoldId     String      @default(uuid())
   firstName       String
   lastName        String
-  phoneNumber     Int         @default(0)
+  phoneNumber     String
   ethnicityCode   Ethnicity
   sexCode         Sex
   age             Int

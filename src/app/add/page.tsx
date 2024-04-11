@@ -9,13 +9,13 @@ const CensusForm: React.FC = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    phoneNumber: 0,
+    phoneNumber: "",
     ethnicityCode: "IGBO",
     sexCode: "MALE",
     age: 0,
     respondent: false,
     relationshipCode: "HUSBAND",
-    maritalStatus: "MARRIED",
+    maritalStatus: "SINGLE",
     spouseName: "",
     fathersName: "",
     mothersName: "",
@@ -29,21 +29,59 @@ const CensusForm: React.FC = () => {
     currentPrompt: 0,
   });
 
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post("/api/census", formData);
+      const { currentPrompt, ...memberData } = formData;
+      const response = await axios.post("/api/household", memberData);
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   const handleNavigation = (direction: number) => {
     setFormData((prevData) => ({
       ...prevData,
       currentPrompt: prevData.currentPrompt + direction,
     }));
+  };
+
+  const isFormValid = () => {
+    switch (formData.currentPrompt) {
+      case 0:
+        return (
+          formData.firstName !== "" &&
+          formData.lastName !== "" &&
+          formData.phoneNumber !== "" &&
+          formData.ethnicityCode !== "" &&
+          formData.sexCode !== ""
+        );
+      case 1:
+        return (
+          formData.age !== 0 &&
+          (formData.age < 16
+            ? formData.relationshipCode !== "" &&
+              formData.mothersName !== "" &&
+              formData.fathersName !== ""
+            : formData.positionInHousehold !== "" &&
+              formData.maritalStatus !== "" &&
+              (formData.maritalStatus === "MARRIED"
+                ? formData.spouseName !== ""
+                : true) &&
+              formData.educationLevel !== "" &&
+              formData.employmentStatus !== "")
+        );
+      case 2:
+        return formData.headOfHousehold !== null &&
+          (!formData.headOfHousehold
+            ? formData.hohFirstName !== "" && formData.hohLastName !== ""
+            : true);
+      default:
+        return false;
+    }
   };
 
   const renderPrompt = () => {
@@ -58,7 +96,6 @@ const CensusForm: React.FC = () => {
                   <span className="text-gray-600"> Member</span>
                 </h1>
               </div>
-              <form>
                 <div className="space-y-3">
                   <div>
                     <Input
@@ -100,7 +137,7 @@ const CensusForm: React.FC = () => {
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          phoneNumber: parseInt(e.target.value),
+                          phoneNumber: e.target.value,
                         })
                       }
                     />
@@ -117,7 +154,7 @@ const CensusForm: React.FC = () => {
                         })
                       }
                       options={[
-                        { value: "", label: "Please select an option" },
+                        // { value: "", label: "Please select an option" },
                         { value: "IGBO", label: "Igbo" },
                         { value: "YORUBA", label: "Yoruba" },
                         { value: "HAUSA", label: "Hausa" },
@@ -137,7 +174,7 @@ const CensusForm: React.FC = () => {
                         })
                       }
                       options={[
-                        { value: "", label: "Please select an option" },
+                        // { value: "", label: "Please select an option" },
                         { value: "MALE", label: "Male" },
                         { value: "FEMALE", label: "Female" },
                       ]}
@@ -147,13 +184,13 @@ const CensusForm: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleNavigation(1)}
+                      disabled={!isFormValid()}
                       className="inline-flex items-center justify-center h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
                     >
                       Next
                     </button>
                   </div>
                 </div>
-              </form>
             </div>
           </div>
         );
@@ -167,7 +204,6 @@ const CensusForm: React.FC = () => {
                   <span className="text-gray-600"> Member</span>
                 </h1>
               </div>
-              <form>
                 <div className="space-y-3">
                   <div>
                     <Input
@@ -199,10 +235,10 @@ const CensusForm: React.FC = () => {
                             })
                           }
                           options={[
-                            {
-                              value: "",
-                              label: "Please select an option",
-                            },
+                            // {
+                            //   value: "",
+                            //   label: "Please select an option",
+                            // },
                             { value: "HUSBAND", label: "Husband" },
                             { value: "WIFE", label: "Wife" },
                             { value: "CHILD", label: "Child" },
@@ -261,10 +297,10 @@ const CensusForm: React.FC = () => {
                             })
                           }
                           options={[
-                            {
-                              value: "",
-                              label: "Please select an option",
-                            },
+                            // {
+                            //   value: "",
+                            //   label: "Please select an option",
+                            // },
                             { value: "HEAD", label: "Head" },
                             { value: "SPOUSE", label: "Spouse" },
                             { value: "CHILD", label: "Child" },
@@ -284,10 +320,10 @@ const CensusForm: React.FC = () => {
                             })
                           }
                           options={[
-                            {
-                              value: "",
-                              label: "Please select an option",
-                            },
+                            // {
+                            //   value: "",
+                            //   label: "Please select an option",
+                            // },
                             { value: "SINGLE", label: "Single" },
                             { value: "MARRIED", label: "Married" },
                             { value: "DIVORCED", label: "Divorced" },
@@ -324,10 +360,10 @@ const CensusForm: React.FC = () => {
                             })
                           }
                           options={[
-                            {
-                              value: "",
-                              label: "Please select an option",
-                            },
+                            // {
+                            //   value: "",
+                            //   label: "Please select an option",
+                            // },
                             { value: "PRIMARY", label: "Primary" },
                             { value: "MARRIED", label: "Secondary" },
                             { value: "TERTIARY", label: "Tertiary" },
@@ -346,10 +382,10 @@ const CensusForm: React.FC = () => {
                             })
                           }
                           options={[
-                            {
-                              value: "",
-                              label: "Please select an option",
-                            },
+                            // {
+                            //   value: "",
+                            //   label: "Please select an option",
+                            // },
                             { value: "STUDENT", label: "Student" },
                             { value: "UNEMPLOYED", label: "Unemployed" },
                             { value: "EMPLOYED", label: "Employed" },
@@ -371,13 +407,13 @@ const CensusForm: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleNavigation(1)}
+                      disabled={!isFormValid()}
                       className="inline-flex items-center justify-center h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
                     >
                       Next
                     </button>
                   </div>
                 </div>
-              </form>
             </div>
           </div>
         );
@@ -391,7 +427,7 @@ const CensusForm: React.FC = () => {
                   <span className="text-gray-600"> Member</span>
                 </h1>
               </div>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="space-y-3">
                   <div>
                     <Label label="Head of Household" />
@@ -480,6 +516,7 @@ const CensusForm: React.FC = () => {
                     </button>
                     <button
                       type="submit"
+                      disabled={!isFormValid()}
                       className="inline-flex items-center justify-center h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
                     >
                       Submit
@@ -496,16 +533,11 @@ const CensusForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {renderPrompt()}
-      <button type="button" onClick={() => handleNavigation(-1)}>
-        Previous
-      </button>
-      <button type="button" onClick={() => handleNavigation(1)}>
-        Next
-      </button>
-      <button type="submit">Submit</button>
-    </form>
+  <div>
+
+    {renderPrompt()}
+  </div>
+
   );
 };
 
