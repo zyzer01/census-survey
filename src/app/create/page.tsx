@@ -55,10 +55,10 @@ const CreateHouseholdMember = () => {
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     console.log(value);
-    
+
     setFormData({ ...formData, [name]: value === "true" });
   };
-  
+
   const {
     firstName,
     lastName,
@@ -148,6 +148,7 @@ const CreateHouseholdMember = () => {
                     value={ethnicityCode}
                     onChange={handleChange}
                     options={[
+                      { value: "", label: "Please select an option" },
                       { value: "IGBO", label: "Igbo" },
                       { value: "YORUBA", label: "Yoruba" },
                       { value: "HAUSA", label: "Hausa" },
@@ -163,6 +164,7 @@ const CreateHouseholdMember = () => {
                     value={sexCode}
                     onChange={handleChange}
                     options={[
+                      { value: "", label: "Please select an option" },
                       { value: "MALE", label: "Male" },
                       { value: "FEMALE", label: "Female" },
                     ]}
@@ -213,6 +215,7 @@ const CreateHouseholdMember = () => {
                     value={relationshipCode}
                     onChange={handleChange}
                     options={[
+                      { value: "", label: "Please select an option" },
                       { value: "HUSBAND", label: "Husband" },
                       { value: "WIFE", label: "Wife" },
                       { value: "CHILD", label: "Child" },
@@ -226,9 +229,10 @@ const CreateHouseholdMember = () => {
                   <SelectField
                     label="Marital Status"
                     name="maritalStatusCode"
-                    value={maritalStatusCode}
+                    value={maritalStatusCode || "SINGLE"}
                     onChange={handleChange}
                     options={[
+                      { value: "", label: "Please select an option" },
                       { value: "SINGLE", label: "Single" },
                       { value: "MARRIED", label: "Married" },
                       { value: "DIVORCED", label: "Divorced" },
@@ -289,6 +293,7 @@ const CreateHouseholdMember = () => {
                     value={educationLevel}
                     onChange={handleChange}
                     options={[
+                      { value: "", label: "Please select an option" },
                       { value: "PRIMARY", label: "Primary" },
                       { value: "SECONDARY", label: "Secondary" },
                       { value: "TERTIARY", label: "Tertiary" },
@@ -304,6 +309,7 @@ const CreateHouseholdMember = () => {
                     value={employmentStatus}
                     onChange={handleChange}
                     options={[
+                      { value: "", label: "Please select an option" },
                       { value: "STUDENT", label: "Student" },
                       { value: "EMPLOYED", label: "Employed" },
                       { value: "SELF_EMPLOYED", label: "Self Employed" },
@@ -315,7 +321,12 @@ const CreateHouseholdMember = () => {
               <div className="p-2 w-full">
                 <button
                   type="submit"
-                  className="flex mx-auto bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+                  disabled={isDisabled}
+                  className={`bg-blue-500 text-white font-bold py-2 px-4 rounded ${
+                    isDisabled
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:bg-blue-700"
+                  }`}
                 >
                   Submit
                 </button>
