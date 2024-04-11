@@ -12,21 +12,22 @@ const CreateHouseholdMember = () => {
     ethnicityCode: "",
     sexCode: "",
     dateOfBirth: "",
-    respondent: false,
+    respondent: true,
     relationshipCode: "",
-    maritalStatusCode: null,
+    maritalStatusCode: "",
     fathersName: "",
     mothersName: "",
-    schoolAttendance: false,
-    educationLevel: null,
-    employmentStatus: null,
+    schoolAttendance: true,
+    educationLevel: "",
+    employmentStatus: "",
   });
+
   const [formError, setFormError] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const requiredFields = Object.entries(formData).filter(
-      ([key, value]) => value === "" || value === null
+      ([key, value]) => value === ""
     );
 
     if (requiredFields.length > 0) {
@@ -40,7 +41,7 @@ const CreateHouseholdMember = () => {
         console.error("Error:", error);
       }
     }
-  }
+  };
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -51,6 +52,13 @@ const CreateHouseholdMember = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    console.log(value);
+    
+    setFormData({ ...formData, [name]: value === "true" });
+  };
+  
   const {
     firstName,
     lastName,
@@ -140,9 +148,9 @@ const CreateHouseholdMember = () => {
                     value={ethnicityCode}
                     onChange={handleChange}
                     options={[
-                      { value: "igbo", label: "Igbo" },
-                      { value: "yoruba", label: "Yoruba" },
-                      { value: "hausa", label: "Hausa" },
+                      { value: "IGBO", label: "Igbo" },
+                      { value: "YORUBA", label: "Yoruba" },
+                      { value: "HAUSA", label: "Hausa" },
                     ]}
                   />
                 </div>
@@ -155,8 +163,8 @@ const CreateHouseholdMember = () => {
                     value={sexCode}
                     onChange={handleChange}
                     options={[
-                      { value: "male", label: "Male" },
-                      { value: "female", label: "Female" },
+                      { value: "MALE", label: "Male" },
+                      { value: "FEMALE", label: "Female" },
                     ]}
                   />
                 </div>
@@ -181,8 +189,8 @@ const CreateHouseholdMember = () => {
                     type="radio"
                     name="respondent"
                     value="true"
-                    checked={respondent === "true"}
-                    onChange={handleChange}
+                    checked={respondent === true}
+                    onChange={handleRadioChange}
                   />
                   <label htmlFor="respondentTrue" className="mr-6">
                     True
@@ -191,8 +199,8 @@ const CreateHouseholdMember = () => {
                     type="radio"
                     name="respondent"
                     value="false"
-                    checked={respondent === "false"}
-                    onChange={handleChange}
+                    checked={respondent === false}
+                    onChange={handleRadioChange}
                   />
                   <label htmlFor="respondentFalse">False</label>
                 </div>
@@ -205,10 +213,10 @@ const CreateHouseholdMember = () => {
                     value={relationshipCode}
                     onChange={handleChange}
                     options={[
-                      { value: "husband", label: "Husband" },
-                      { value: "wife", label: "Wife" },
-                      { value: "child", label: "Child" },
-                      { value: "extendedFamily", label: "Extended Family" },
+                      { value: "HUSBAND", label: "Husband" },
+                      { value: "WIFE", label: "Wife" },
+                      { value: "CHILD", label: "Child" },
+                      { value: "EXTENDED_FAMILY", label: "Extended Family" },
                     ]}
                   />
                 </div>
@@ -221,9 +229,9 @@ const CreateHouseholdMember = () => {
                     value={maritalStatusCode}
                     onChange={handleChange}
                     options={[
-                      { value: "single", label: "Single" },
-                      { value: "married", label: "Married" },
-                      { value: "divorced", label: "Divorced" },
+                      { value: "SINGLE", label: "Single" },
+                      { value: "MARRIED", label: "Married" },
+                      { value: "DIVORCED", label: "Divorced" },
                     ]}
                   />
                 </div>
@@ -257,8 +265,8 @@ const CreateHouseholdMember = () => {
                     type="radio"
                     name="schoolAttendance"
                     value="true"
-                    checked={schoolAttendance === "true"}
-                    onChange={handleChange}
+                    checked={schoolAttendance === true}
+                    onChange={handleRadioChange}
                   />
                   <label htmlFor="schoolAttendanceTrue" className="mr-6">
                     Present
@@ -267,8 +275,8 @@ const CreateHouseholdMember = () => {
                     type="radio"
                     name="schoolAttendance"
                     value="false"
-                    checked={schoolAttendance === "false"}
-                    onChange={handleChange}
+                    checked={schoolAttendance === false}
+                    onChange={handleRadioChange}
                   />
                   <label htmlFor="schoolAttendanceFalse">Absent</label>
                 </div>
@@ -281,9 +289,9 @@ const CreateHouseholdMember = () => {
                     value={educationLevel}
                     onChange={handleChange}
                     options={[
-                      { value: "primary", label: "Primary" },
-                      { value: "secondary", label: "Secondary" },
-                      { value: "tertiary", label: "Tertiary" },
+                      { value: "PRIMARY", label: "Primary" },
+                      { value: "SECONDARY", label: "Secondary" },
+                      { value: "TERTIARY", label: "Tertiary" },
                     ]}
                   />
                 </div>
@@ -296,10 +304,10 @@ const CreateHouseholdMember = () => {
                     value={employmentStatus}
                     onChange={handleChange}
                     options={[
-                      { value: "student", label: "Student" },
-                      { value: "employed", label: "Employed" },
-                      { value: "self_employed", label: "Self Employed" },
-                      { value: "unemployed", label: "Unemployed" },
+                      { value: "STUDENT", label: "Student" },
+                      { value: "EMPLOYED", label: "Employed" },
+                      { value: "SELF_EMPLOYED", label: "Self Employed" },
+                      { value: "UNEMPLOYED", label: "Unemployed" },
                     ]}
                   />
                 </div>

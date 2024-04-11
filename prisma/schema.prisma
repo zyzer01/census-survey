@@ -23,7 +23,7 @@ model HouseholdMember {
   phoneNumber     String?
   ethnicityCode   Ethnicity
   sexCode         Sex
-  dateOfBirth     DateTime
+  dateOfBirth     String
   respondent      Boolean
   relationshipCode Relationship
   maritalStatusCode MaritalStatus?
@@ -54,9 +54,10 @@ enum Sex {
 }
 
 enum Relationship {
-  FATHER
-  MOTHER
-  GUARDIAN
+  HUSBAND
+  WIFE
+  CHILD
+  EXTENDED_FAMILY
 }
 
 enum MaritalStatus {
