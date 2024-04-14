@@ -7,6 +7,9 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Link from "next/link";
 import Modal from "@/app/components/Modal";
+import ItemNotFound from "@/app/components/ItemNotFound";
+import Input from "@/app/components/ui/Input";
+import Pagination from "@/app/components/Pagination";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -14,9 +17,14 @@ const Page = () => {
   const [buttonLoading, setButtonLoading] = useState(false);
   const { data, error, isLoading } = useSWR("/api/household", fetcher);
   const [showModal, setShowModal] = useState(false);
-  const [selectedMember, setSelectedMember] = useState<HouseholdMember | null>(null);
+  const [selectedMember, setSelectedMember] = useState<HouseholdMember | null>(
+    null
+  );
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil((data?.length || 0) / itemsPerPage);
 
-  
   const formatString = (str: string) => {
     return str
       .toLowerCase()
@@ -35,10 +43,14 @@ const Page = () => {
       setButtonLoading(false);
     }
   };
-  
+
   const handleOpenModal = (member: HouseholdMember) => {
     setShowModal(true);
-    setSelectedMember(member); // You may need to add this state to store the selected member
+    setSelectedMember(member);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -55,6 +67,17 @@ const Page = () => {
         handleDeleteMember={handleDeleteMember}
         selectedMember={selectedMember}
       />
+      <div className="mb-4">
+        <Input
+          id="Search"
+          name="search"
+          label="Search for a member:"
+          type="text"
+          placeholder="Search by name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
       <div className="w-full">
         <div className="flex flex-col">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -90,43 +113,58 @@ const Page = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-700">
-                    {data?.map((member: HouseholdMember) => (
-                      <tr className="py-6" key={member.id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
-                          {member.firstName} {member.lastName}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
-                          {formatString(member.sexCode)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
-                          {member.age} year(s)
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-gray-700 flex space-x-4 font-medium">
-                          <p
-                            onClick={() => handleOpenModal(member)}
-                            className="cursor-pointer hover:scale-125 transition ease-in-out duration-300"
-                          >
-                            <IoTrashOutline />
-                          </p>
-                          <Link href={`/dashboard/members/${member.id}`}>
-                          <p className="cursor-pointer hover:scale-125 transition ease-in-out duration-300">
-                            <IoEyeOutline />
-                          </p>
-                          </Link>
-                        </td>
-                      </tr>
-                    ))}
+                    {data
+                      ?.filter(
+                        (member: HouseholdMember) =>
+                          member.firstName
+                            .toLowerCase()
+                            .includes(searchQuery.toLowerCase()) ||
+                          member.lastName
+                            .toLowerCase()
+                            .includes(searchQuery.toLowerCase())
+                      )
+                      .slice(
+                        (currentPage - 1) * itemsPerPage,
+                        currentPage * itemsPerPage
+                      )
+                      .map((member: HouseholdMember) => (
+                        <tr className="py-6" key={member.id}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
+                            {member.firstName} {member.lastName}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
+                            {formatString(member.sexCode)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
+                            {member.age} year(s)
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-gray-700 flex space-x-4 font-medium">
+                            <p
+                              onClick={() => handleOpenModal(member)}
+                              className="cursor-pointer hover:scale-125 transition ease-in-out duration-300"
+                            >
+                              <IoTrashOutline />
+                            </p>
+                            <Link href={`/dashboard/members/${member.id}`}>
+                              <p className="cursor-pointer hover:scale-125 transition ease-in-out duration-300">
+                                <IoEyeOutline />
+                              </p>
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
             </div>
             <div className="text-center">
               {isLoading && <p>Loading...</p>}
-              {error && <p>Failed to load</p>}
+              {error && <ItemNotFound />}
             </div>
           </div>
         </div>
       </div>
+      <Pagination currentPage={currentPage} handlePageChange={handlePageChange} totalPages={totalPages} />
     </div>
   );
 };

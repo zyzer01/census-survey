@@ -1,16 +1,5 @@
 import React, { useState } from "react";
 
-interface ModalProps {
-  modalTitle: string;
-  modalMessage: string;
-  primaryButton: string;
-  color: keyof ColorVariants;
-  showModal: boolean;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  buttonLoading: boolean;
-  handleDeleteMember: (id: string) => Promise<void>;
-  selectedMember: HouseholdMember | null;
-}
 
 const Modal: React.FC<ModalProps> = ({
   modalTitle,

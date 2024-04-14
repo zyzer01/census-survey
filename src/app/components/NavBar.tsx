@@ -1,21 +1,27 @@
+"use client";
 import React, { useState } from "react";
 import { RiMenu4Line } from "react-icons/ri";
 import { MdOutlineClose } from "react-icons/md";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const NavBar = () => {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="justify-center w-full mx-auto bg-gray-100">
+    <div className="w-full mx-auto bg-gray-100">
       <div className="flex flex-col w-full px-8 py-2 mx-auto md:px-12 md:items-center md:justify-between md:flex-row lg:px-32 max-w-7xl">
         <div className="flex flex-row items-center justify-between text-black">
-          <a
-            className="inline-flex items-center gap-3 text-xl font-bold tracking-tight text-black"
+          <Link
+            className={`${
+              pathname === "/" ? "active" : "text-red"
+            } inline-flex items-center gap-3 text-xl font-bold tracking-tight text-black`}
             href="/"
           >
             <span> ❖ </span>
             <span>Survey</span>
-          </a>
+          </Link>
           <button
             className="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
             onClick={() => setOpen(!open)}
@@ -28,25 +34,29 @@ const NavBar = () => {
             open ? "flex" : "hidden"
           }`}
         >
-          <a
-            className="hover:text-black focus:outline-none focus:text-gray-500"
-            href="/create"
+          <Link
+            className={`${
+              pathname === "/dashboard" ? "text-black" : ""
+            } hover:text-black focus:outline-none`}
+            href="/dashboard"
           >
-            Create
-          </a>
-          <a
-            className="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto"
-            href="/create"
+            Dashboard
+          </Link>
+          <Link
+            className={`${
+              pathname === "/dashboard/members" ? "text-black" : ""
+            } hover:text-black focus:outline-none md:mr-auto`}
+            href="/dashboard/members"
           >
-            About
-          </a>
-          <a
+            Members
+          </Link>
+          <Link
             className="inline-flex items-center justify-center w-full h-8 gap-3 px-5 py-3 text-xs font-medium text-white duration-200 bg-gray-900 rounded-lg md:w-auto hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"
-            href=""
+            href="/"
             role="button"
           >
-            Button
-          </a>
+            Create
+          </Link>
         </nav>
       </div>
     </div>

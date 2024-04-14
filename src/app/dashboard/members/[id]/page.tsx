@@ -42,8 +42,6 @@ export default function Page({ params }: { params: { id: number } }) {
 
 
   return (
-    <div>
-      <NavBar />
     <div className="px-8 py-24 mx-auto md:px-12 lg:px-32 max-w-7xl">
       <div className="underline cursor-pointer mb-6">
         <Link href="/dashboard/members">Go Back</Link>
@@ -282,7 +280,6 @@ export default function Page({ params }: { params: { id: number } }) {
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

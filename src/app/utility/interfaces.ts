@@ -72,13 +72,22 @@ type ColorVariants = {
     green: string;
     red: string;
 }
-// interface ModalProps {
-//     modalTitle: string;
-//     modalMessage: string;
-//     primaryButton: string;
-//     color: keyof ColorVariants;
-//     showModal: boolean;
-//     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-//     buttonLoading: boolean;
-// }
 
+interface PaginationProps {
+    currentPage: number;
+    handlePageChange: (page: number) => void;
+    totalPages: number;
+}
+
+
+interface ModalProps {
+    modalTitle: string;
+    modalMessage: string;
+    primaryButton: string;
+    color: keyof ColorVariants;
+    showModal: boolean;
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+    buttonLoading: boolean;
+    handleDeleteMember: (id: string) => Promise<void>;
+    selectedMember: HouseholdMember | null;
+}
