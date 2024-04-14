@@ -22,10 +22,6 @@ type HouseholdMember = {
     positionInHousehold: string;
 };
 
-interface HouseholdListProps {
-    members: HouseholdMember[];
-}
-
 interface LabelProps {
     label: string;
     htmlFor?: string;
@@ -39,6 +35,7 @@ interface InputProps {
     value: string | number;
     pattern?: string;
     placeholder?: string;
+    min?: number;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -64,9 +61,24 @@ interface SelectFieldProps {
 }
 
 interface DashboardCardProps {
-    houseHoldId: number;
+    id: number;
     firstName: string;
     lastName: string;
     sex: string;
-    dob: string;
+    age: number;
 }
+
+type ColorVariants = {
+    green: string;
+    red: string;
+}
+// interface ModalProps {
+//     modalTitle: string;
+//     modalMessage: string;
+//     primaryButton: string;
+//     color: keyof ColorVariants;
+//     showModal: boolean;
+//     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+//     buttonLoading: boolean;
+// }
+

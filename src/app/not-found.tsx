@@ -17,7 +17,7 @@ const NotFound = () => {
               Sorry, we couldn’t find the page you’re looking for.
             </p>
           </div>
-          <div className="flex flex-col items-center gap-2 mx-auto mt-8 md:flex-row">
+          <div className="flex flex-row items-center gap-2 mx-auto mt-8">
             <Link href="/">
             <button
               className="inline-flex items-center justify-center w-full h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 md:w-auto rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black"

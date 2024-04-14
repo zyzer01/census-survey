@@ -7,7 +7,7 @@ type Params = {
 }
 export async function GET(req: Request, context: { params: Params }): Promise<Response> {
     try {
-        const id = context.params.id;
+        const id = parseInt(context.params.id);
         const householdMember = await getMember(id);
         if (householdMember) {
             return new Response(JSON.stringify(householdMember), {
@@ -28,7 +28,7 @@ export async function GET(req: Request, context: { params: Params }): Promise<Re
 
 export async function PUT(req: Request, context: { params: Params }): Promise<Response> {
     try {
-        const id = context.params.id
+        const id = parseInt(context.params.id)
         const requestBody = await req.json();
         const updatedHouseholdMember = await updateMember(id, requestBody);
         return new Response(JSON.stringify(updatedHouseholdMember), {
@@ -43,7 +43,7 @@ export async function PUT(req: Request, context: { params: Params }): Promise<Re
 
 export async function DELETE(req: Request, context: { params: Params }) {
     try {
-      const id = context.params.id
+      const id = parseInt(context.params.id)
       await deleteMember(id);
       return new Response(null, {
         status: 204

@@ -10,12 +10,11 @@ export const addMember = async (householdMemberData: Prisma.HouseholdMemberCreat
         return newHouseholdMember;
     } catch (error) {
       console.log(error);
-      
         throw new Error('Error adding household member');
     }
 };
 
-export const updateMember = async (id: string, updates: Prisma.HouseholdMemberUpdateInput): Promise<HouseholdMember> => {
+export const updateMember = async (id: number, updates: Prisma.HouseholdMemberUpdateInput): Promise<HouseholdMember> => {
     try {
         const updatedHouseholdMember = await prisma.householdMember.update({
             where: { id },
@@ -23,6 +22,7 @@ export const updateMember = async (id: string, updates: Prisma.HouseholdMemberUp
         });
         return updatedHouseholdMember;
     } catch (error) {
+      console.log(error)
         throw new Error('Error updating household member');
     }
 };
@@ -36,17 +36,19 @@ export const getMembers = async (): Promise<HouseholdMember[]> => {
     }
 };
 
-export const getMember = async (id: string): Promise<HouseholdMember | null> => {
+export const getMember = async (id: number): Promise<HouseholdMember | null> => {
     try {
       const householdMember = await prisma.householdMember.findUnique({
         where: { id },
       });
       return householdMember;
     } catch (error) {
+      console.log(error);
+      
       throw new Error("Error retrieving household member");
     }
   };
-export const deleteMember = async (id: string): Promise<void> => {
+export const deleteMember = async (id: number): Promise<void> => {
     try {
       await prisma.householdMember.delete({
         where: { id },
