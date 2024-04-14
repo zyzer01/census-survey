@@ -19,7 +19,7 @@ const Page = () => {
         Household
         <span className="text-gray-600"> Data</span>
       </h1>
-      <div className="grid grid-cols-2 text-sm font-medium text-gray-500 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16 text-balance">
+      <div className="grid grid-cols-1 text-sm font-medium text-gray-500 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16 text-balance">
         {members.map((member: HouseholdMember) => (
           <DashboardCard
             key={member.id}
