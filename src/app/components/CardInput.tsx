@@ -16,6 +16,7 @@ const CardInput = () => {
             <div className="space-y-3">
               <div>
                 <Input
+                  value=""
                   label="First Name"
                   id="firstName"
                   type="text"
@@ -25,6 +26,7 @@ const CardInput = () => {
               </div>
               <div>
                 <Input
+                  value="value"
                   label="Last Name"
                   id="lastName"
                   type="text"

@@ -36,7 +36,7 @@ interface InputProps {
     pattern?: string;
     placeholder?: string;
     min?: number;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface Option {
