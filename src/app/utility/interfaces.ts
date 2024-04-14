@@ -28,10 +28,10 @@ interface LabelProps {
 }
 
 interface InputProps {
-    label: string;
-    id: string;
+    label?: string;
+    id?: string;
     type: string;
-    name: string;
+    name?: string;
     value: string | number;
     pattern?: string;
     placeholder?: string;
