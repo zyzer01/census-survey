@@ -5,13 +5,10 @@ CREATE TYPE "Ethnicity" AS ENUM ('IGBO', 'YORUBA', 'HAUSA', 'OTHER');
 CREATE TYPE "Sex" AS ENUM ('MALE', 'FEMALE');
 
 -- CreateEnum
-CREATE TYPE "Relationship" AS ENUM ('FATHER', 'MOTHER', 'GUARDIAN');
+CREATE TYPE "Relationship" AS ENUM ('HUSBAND', 'WIFE', 'CHILD', 'EXTENDED_FAMILY');
 
 -- CreateEnum
 CREATE TYPE "MaritalStatus" AS ENUM ('SINGLE', 'MARRIED', 'DIVORCED');
-
--- CreateEnum
-CREATE TYPE "SchoolAttendance" AS ENUM ('PRESENT', 'ABSENT');
 
 -- CreateEnum
 CREATE TYPE "EducationLevel" AS ENUM ('PRIMARY', 'SECONDARY', 'TERTIARY');
@@ -19,23 +16,32 @@ CREATE TYPE "EducationLevel" AS ENUM ('PRIMARY', 'SECONDARY', 'TERTIARY');
 -- CreateEnum
 CREATE TYPE "EmploymentStatus" AS ENUM ('STUDENT', 'UNEMPLOYED', 'EMPLOYED', 'SELF_EMPLOYED');
 
+-- CreateEnum
+CREATE TYPE "CodePosition" AS ENUM ('HEAD', 'SPOUSE', 'CHILD', 'OTHER');
+
 -- CreateTable
 CREATE TABLE "household_members" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "houseHoldId" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
-    "phoneNumber" TEXT,
+    "phoneNumber" TEXT NOT NULL,
     "ethnicityCode" "Ethnicity" NOT NULL,
     "sexCode" "Sex" NOT NULL,
-    "dateOfBirth" TIMESTAMP(3) NOT NULL,
-    "respondent" BOOLEAN NOT NULL,
+    "age" INTEGER NOT NULL,
+    "respondent" BOOLEAN NOT NULL DEFAULT false,
     "relationshipCode" "Relationship" NOT NULL,
-    "maritalStatusCode" "MaritalStatus",
-    "fathersName" TEXT,
-    "mothersName" TEXT,
-    "schoolAttendance" "SchoolAttendance",
-    "educationLevel" "EducationLevel",
-    "employmentStatus" "EmploymentStatus",
+    "maritalStatus" "MaritalStatus" NOT NULL,
+    "spouseName" TEXT NOT NULL,
+    "fathersName" TEXT NOT NULL,
+    "mothersName" TEXT NOT NULL,
+    "schoolAttendance" BOOLEAN NOT NULL,
+    "educationLevel" "EducationLevel" NOT NULL,
+    "employmentStatus" "EmploymentStatus" NOT NULL,
+    "headOfHousehold" BOOLEAN NOT NULL,
+    "hohFirstName" TEXT NOT NULL,
+    "hohLastName" TEXT NOT NULL,
+    "positionInHousehold" "CodePosition" NOT NULL,
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMPTZ NOT NULL,
 
@@ -44,3 +50,4 @@ CREATE TABLE "household_members" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "household_members_id_key" ON "household_members"("id");
+
