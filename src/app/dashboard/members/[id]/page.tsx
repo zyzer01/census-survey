@@ -42,12 +42,12 @@ export default function Page({ params }: { params: { id: number } }) {
 
 
   return (
-    <div className="px-8 py-24 mx-auto md:px-12 lg:px-32 max-w-7xl">
+    <div className="px-4 py-24 mx-auto md:px-12 lg:px-32 max-w-7xl">
       <div className="underline cursor-pointer mb-6">
         <Link href="/dashboard/members">Go Back</Link>
       </div>
       <div className="p-2 border bg-gray-50 rounded-3xl">
-        <div className="p-10 overflow-hidden bg-white border shadow-lg rounded-3xl md:p-20">
+        <div className="px-4 py-10 overflow-hidden bg-white border shadow-lg rounded-3xl md:p-20">
           <div>
             <span className="text-sm font-semibold text-gray-500 uppercase">
               Household Id:{" "}
