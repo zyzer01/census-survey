@@ -11,7 +11,7 @@ A web application for conducting census surveys, allowing users to add and manag
 **Server:** Node, Express, Prisma ORM, PostgreSQL
 
 
-## To run
+## Run Locally
 
 First, run the development server:
 
