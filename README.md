@@ -11,6 +11,24 @@ A web application for conducting census surveys, allowing users to add and manag
 **Server:** Node, Express, Prisma ORM, PostgreSQL
 
 
+## Features
+
+- Dashboard
+- Search Function
+- Pagination
+
+
+## Screenshots
+
+![Form](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-1.png)
+
+![Dashoboard](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-2.png)
+
+![Members Page](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-3.png)
+
+![Member Data](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-4.png)
+
+
 ## Run Locally
 
 First, run the development server:
@@ -31,15 +49,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Demo
 
 [census-survery.vercel.app](https://census-survey.vercel.app)
-
-
-## Screenshots
-
-![Form](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-1.png)
-
-![Dashoboard](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-2.png)
-
-![Members Page](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-3.png)
-
-![Member Data](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-4.png)
-
