@@ -39,7 +39,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ![Dashoboard](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-2.png)
 
-![Members Page](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-4.png)
+![Members Page](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-3.png)
 
 ![Member Data](https://github.com/Zyzer01/census-survey/blob/main/public/screenshots/census-survey-4.png)
 
