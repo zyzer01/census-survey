@@ -4,6 +4,13 @@
 A web application for conducting census surveys, allowing users to add and manage household members with various personal details. The application uses Prisma as an ORM to store and retrieve data from a database.
 
 
+## Tech Stack
+
+**Client:** Nextjs, TailwindCSS
+
+**Server:** Node, Express, Prisma ORM, PostgreSQL
+
+
 ## To run
 
 First, run the development server:
@@ -19,14 +26,6 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. 
-
-
-## Features
-
-- Dashboard
-- Live previews
-- Fullscreen mode
-- Cross platform
 
 
 ## Demo
