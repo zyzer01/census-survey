@@ -102,7 +102,7 @@ const CensusForm: React.FC = () => {
             <div className="max-w-md mx-auto md:max-w-sm md:w-96">
               <div className="flex flex-col text-center">
                 <h1 className="text-3xl font-semibold tracking-tighter text-gray-900 mb-8">
-                  New Houshold
+                  New Household
                   <span className="text-gray-600"> Member</span>
                 </h1>
               </div>
